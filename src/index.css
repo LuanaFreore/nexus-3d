@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* NEXUS 3D palette — design.md §2 */
+    --void: #050505;
+    --surface: #0a0a0a;
+    --hairline: rgba(255, 255, 255, 0.08);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    --text: #ededed;
+    --text-dim: rgba(237, 237, 237, 0.5);
+    --text-faint: rgba(237, 237, 237, 0.28);
+    --accent: #f6287d;
+    --accent-dim: rgba(246, 40, 125, 0.14);
+    --core: #ffffff;
+    --danger: #ff4545;
+
+    --ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* shadcn/ui compat vars (dark, void-mapped) */
+    --background: 0 0% 2%;
+    --foreground: 0 0% 93%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 93%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 0 0% 93%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 93%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 55%;
+    --accent-sh: 0 0% 10%;
+    --accent-foreground: 0 0% 93%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100% / 0.08;
+    --input: 0 0% 100%;
+    --ring: 332 92% 56%;
+    --radius: 2px;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 93%;
+    --sidebar-primary: 332 92% 56%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 0 0% 93%;
+    --sidebar-border: 0 0% 100%;
+    --sidebar-ring: 332 92% 56%;
+  }
+
+  * {
+    border-color: var(--hairline);
+  }
+
+  html {
+    background: var(--void);
+    scroll-behavior: auto; /* Lenis owns smooth scroll */
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--void);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--hairline-strong);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  /* custom cursor takes over on fine pointers */
+  @media (pointer: fine) {
+    body,
+    a,
+    button,
+    [role='button'] {
+      cursor: none;
+    }
+  }
+
+  /* numeric readouts always tabular */
+  .tnum,
+  code,
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* HUD label: mono 11px, +0.18em, uppercase */
+  .hud-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* HUD readout value: mono 12-13px */
+  .hud-readout {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* HUD panel surface */
+  .hud-surface {
+    background: rgba(10, 10, 10, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+  }
+
+  /* HUD notch: 8px cut on the top-left corner — HUD signature */
+  .hud-notch {
+    clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
+  }
+
+  /* primary hairline button with scan-line hover */
+  .btn-hairline {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--hairline-strong);
+    background: transparent;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border-radius: 0;
+    transition:
+      color 150ms var(--ease-cine),
+      border-color 150ms var(--ease-cine),
+      background-color 150ms var(--ease-cine);
+  }
+  .btn-hairline:hover {
+    border-color: var(--accent);
+    color: var(--core);
+    background: var(--accent-dim);
+  }
+  .btn-hairline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--accent);
+    transform: translateX(-101%);
+    pointer-events: none;
+  }
+  .btn-hairline:hover::after {
+    animation: scanline 300ms var(--ease-cine) forwards;
+  }
+
+  /* accent CTA */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: var(--void);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    border-radius: 0;
+    border: 1px solid var(--accent);
+    transition:
+      background-color 150ms var(--ease-cine),
+      border-color 150ms var(--ease-cine);
+  }
+  .btn-cta:hover {
+    background: var(--core);
+    border-color: var(--core);
+  }
+
+  /* ghost mono link */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 150ms var(--ease-cine);
+  }
+  .btn-ghost:hover {
+    color: var(--core);
+  }
+  .btn-ghost .ghost-arrow {
+    display: inline-block;
+    transition: transform 150ms var(--ease-cine);
+  }
+  .btn-ghost:hover .ghost-arrow {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes scanline {
+  from {
+    transform: translateX(-101%);
+  }
+  to {
+    transform: translateX(101%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(40px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
