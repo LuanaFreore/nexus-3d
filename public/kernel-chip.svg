@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" fill="none" font-family="ui-monospace, 'JetBrains Mono', monospace">
+  <!-- C++20 kernel die, top view — blueprint/schematic style -->
+  <rect width="800" height="600" fill="#0A0A0A"/>
+
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M25 0 H0 V25" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#grid)"/>
+
+  <g stroke="rgba(255,255,255,0.55)" stroke-width="1">
+    <!-- die package -->
+    <rect x="140" y="90" width="520" height="420" stroke-width="1.5"/>
+    <!-- pins top/bottom -->
+    <g stroke-width="1">
+      <path d="M170 90 V66 M210 90 V66 M250 90 V66 M290 90 V66 M330 90 V66 M370 90 V66 M410 90 V66 M450 90 V66 M490 90 V66 M530 90 V66 M570 90 V66 M610 90 V66"/>
+      <path d="M170 510 V534 M210 510 V534 M250 510 V534 M290 510 V534 M330 510 V534 M370 510 V534 M410 510 V534 M450 510 V534 M490 510 V534 M530 510 V534 M570 510 V534 M610 510 V534"/>
+      <path d="M140 130 H116 M140 170 H116 M140 210 H116 M140 250 H116 M140 290 H116 M140 330 H116 M140 370 H116 M140 410 H116 M140 450 H116"/>
+      <path d="M660 130 H684 M660 170 H684 M660 210 H684 M660 250 H684 M660 290 H684 M660 330 H684 M660 370 H684 M660 410 H684 M660 450 H684"/>
+    </g>
+    <!-- die inner boundary -->
+    <rect x="180" y="130" width="440" height="340" stroke="rgba(255,255,255,0.35)"/>
+
+    <!-- register banks -->
+    <g stroke="rgba(255,255,255,0.45)">
+      <rect x="200" y="150" width="90" height="60"/>
+      <rect x="200" y="222" width="90" height="60"/>
+      <rect x="200" y="294" width="90" height="60"/>
+      <rect x="510" y="150" width="90" height="60"/>
+      <rect x="510" y="222" width="90" height="60"/>
+      <rect x="510" y="294" width="90" height="60"/>
+      <!-- cache block -->
+      <rect x="200" y="388" width="400" height="62"/>
+      <path d="M300 388 V450 M400 388 V450 M500 388 V450" stroke="rgba(255,255,255,0.25)"/>
+    </g>
+
+    <!-- bus traces -->
+    <g stroke="rgba(255,255,255,0.35)">
+      <path d="M290 180 H360 M290 252 H360 M290 324 H360"/>
+      <path d="M440 180 H510 M440 252 H510 M440 324 H510"/>
+      <path d="M380 210 V388 M420 210 V388" stroke="rgba(255,255,255,0.2)"/>
+      <path d="M245 282 V388 M555 282 V388" stroke="rgba(255,255,255,0.2)"/>
+      <path d="M360 130 V150 M440 130 V150 M245 130 V150 M555 130 V150" stroke="rgba(255,255,255,0.25)"/>
+    </g>
+
+    <!-- compute cores grid (2x2), one highlighted accent -->
+    <g stroke="rgba(255,255,255,0.5)">
+      <rect x="330" y="150" width="80" height="80"/>
+      <rect x="440" y="150" width="0" height="0" stroke="none"/>
+      <rect x="330" y="250" width="80" height="80"/>
+      <rect x="390" y="250" width="0" height="0" stroke="none"/>
+    </g>
+    <!-- accent core -->
+    <rect x="330" y="250" width="80" height="80" fill="rgba(246,40,125,0.12)" stroke="#F6287D" stroke-width="1.5"/>
+    <path d="M330 250 L410 330 M410 250 L330 330" stroke="#F6287D" stroke-width="1" stroke-opacity="0.6"/>
+  </g>
+
+  <!-- labels -->
+  <g fill="rgba(237,237,237,0.55)" font-size="11" letter-spacing="2">
+    <text x="200" y="144">reg[a0..a7]</text>
+    <text x="200" y="216">reg[b0..b7]</text>
+    <text x="200" y="288">simd_avx2</text>
+    <text x="510" y="144">reg[c0..c7]</text>
+    <text x="510" y="216">omp_pool</text>
+    <text x="510" y="288">pybind11_abi</text>
+    <text x="200" y="382">l2_cache · shared forces buffer</text>
+    <text x="330" y="144">core_0</text>
+    <text x="330" y="244" fill="#F6287D">core_1 · nbody</text>
+  </g>
+  <g fill="rgba(237,237,237,0.3)" font-size="10" letter-spacing="3">
+    <text x="140" y="52">nexus-kernel // c++20 · pybind11 · avx2+openmp</text>
+    <text x="140" y="566">die rev b · force accumulation unit · 65536 bodies</text>
+  </g>
+</svg>
