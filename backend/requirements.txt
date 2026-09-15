@@ -1,0 +1,8 @@
+# NEXUS 3D — backend (CPU-only por padrão; para CUDA veja pytorch.org)
+fastapi>=0.115,<0.117
+uvicorn[standard]>=0.34,<0.36
+torch>=2.2,<3.0
+httpx>=0.27,<0.29
+pyjwt>=2.8,<3.0
+pydantic>=2.7,<3.0
+numpy>=1.26
